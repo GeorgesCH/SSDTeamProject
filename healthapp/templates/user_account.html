@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+  {% if current_user.role == 'Admin' %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Delete User?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form action="{{ url_for('delete_user', email=user.email) }}" method="POST">
+              <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <div class="content-section">
+    <div class="media">
+      <div class="media-body">
+        <p class="text-secondary">Email: {{ user.email }}</p>
+        <p class="text-secondary">Name: {{ user.first_name }} {{ user.last_name }}</p>
+        <p class="text-secondary">Role: {{ user.role }}</p>
+      </div>
+    </div>
+  </div>
+
+<div class="row mb-4">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Download your data</h5>
+        <p class="card-text">Download all your health records in CSV format</p>
+          <a class="mr-2 btn btn-primary" href="{{ url_for('download_data', email=user.email, record_type='Posts') }}">Download Data</a>
+
+      </div>
+    </div>
+  </div>
+  {% if current_user.role == 'Admin' %}
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Delete your Account</h5>
+        <p class="card-text">This button will permanently delete your account</p>
+      <button type="button" class="btn btn btn-outline-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete User</button>
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+
+    {% for post in posts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_account', email=post['author']) }}">From: {{ post['author']}}</a>
+              <a class="mr-2" href="{{ url_for('user_account', email=post['recipient']) }}">To: {{ post['recipient']}}</a>
+              <small class="text-muted">{{ post['date_posted'] }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post['id'])}}">{{ post['title'] }}</a></h2>
+            <p class="article-content">{{ post['content'] }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

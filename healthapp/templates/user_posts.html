@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+   <a class="mr-2 mb-3 btn btn-primary" href="{{ url_for('download_data', email=user.email, record_type='Posts') }}">Download Data</a>
+    {% for post in posts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_account', email=post['author']) }}">From: {{ post['author']}}</a>
+                <a class="mr-2" href="{{ url_for('user_account', email=post['recipient']) }}">To: {{ post['recipient']}}</a>
+              <small class="text-muted">{{ post['date_posted'] }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post['id'])}}">{{ post['title'] }}</a></h2>
+            <p class="article-content">{{ post['content'] }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for post in posts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_account', email=post.email) }}">{{ post.email }}</a>
+            </div>
+              <h2><a class="article-title" href="{{ url_for('user_posts', email=post.email) }}">Posts</a></h2>
+              {% if post.role == 'Astronaut' %}
+                <h2><a class="article-title" href="{{ url_for('astronauts_blood_pressure', email=post.email) }}">Blood Pressure</a></h2>
+                <h2><a class="article-title" href="{{ url_for('astronauts_weight', email=post.email) }}">Weight</a></h2>
+              {% endif %}
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

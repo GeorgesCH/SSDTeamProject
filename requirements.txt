@@ -1,0 +1,14 @@
+Flask
+SQLAlchemy
+Flask-SQLAlchemy
+Flask-Bcrypt
+Flask-Login
+Flask-RESTful
+Flask-Limiter
+Flask-Migrate
+Flask-WTF
+cryptography
+WTForms
+requests
+PyJWT
+email-validator

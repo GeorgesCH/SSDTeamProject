@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+     <a class="mr-2 mb-3 btn btn-primary" href="{{ url_for('download_data', email=user.email, record_type=title) }}">Download Data</a>
+    {% for post in posts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_account', email=post['author']) }}">{{ post['author'] }}</a>
+              <small class="text-muted">{{ post['date_posted'] }}</small>
+            </div>
+            <p class="article-content">{{ post['record'] }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

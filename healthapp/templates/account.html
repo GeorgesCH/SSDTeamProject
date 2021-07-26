@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="content-section">
+    <div class="media">
+      <div class="media-body">
+        <p class="text-secondary">Email: {{ current_user.email }}</p>
+        <p class="text-secondary">Name: {{ current_user.first_name }} {{ current_user.last_name }}</p>
+        <p class="text-secondary">Role: {{ current_user.role }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
